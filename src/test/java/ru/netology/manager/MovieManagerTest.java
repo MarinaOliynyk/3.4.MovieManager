@@ -3,6 +3,7 @@ package ru.netology.manager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Movie;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MovieManagerTest {
@@ -17,7 +18,7 @@ public class MovieManagerTest {
     Movie eighth = new Movie(8, "https://Wrath_of_Man_poster.jpg", "Wrath_of_Man", "action");
     Movie ninth = new Movie(9, "https://Mad_Max_poster.jpg", "Mad_Max", "action");
     Movie tenth = new Movie(10, "https://Soul_poster.jpg", "Soul", "animated");
-   // Movie eleven = new Movie(11, "https://Knives_Out_poster.jpg", "Knives_Out", "detective");
+    Movie eleven = new Movie(11, "https://Knives_Out_poster.jpg", "Knives_Out", "detective");
 
     @BeforeEach
     public void setUp() {
@@ -31,11 +32,10 @@ public class MovieManagerTest {
         manager.add(eighth);
         manager.add(ninth);
         manager.add(tenth);
-        //manager.add(eleven);
     }
 
     @Test
-    void addMovie () {
+    void addMovie() {
         Movie eleven = new Movie(11, "https://Knives_Out_poster.jpg", "Knives_Out", "detective");
         manager.add(eleven);
         Movie[] actual = manager.getAll();
@@ -44,29 +44,30 @@ public class MovieManagerTest {
     }
 
     @Test
-    void shouldLast10Movie() {
-        MovieManager manager = new MovieManager(10);
-        Movie[]  actual = manager.getAll();
-        Movie[]  expected = new Movie[]{};
+    void shouldLastMovies() {
+        MovieManager manager = new MovieManager();
+        Movie[] actual = manager.getAll();
+        Movie[] expected = new Movie[]{};
         assertArrayEquals(expected, actual);
     }
 
+
     @Test
-    void shouldLast5Movie() {
-        MovieManager manager = new MovieManager(5);
+    void shouldMovieLessLimit() {
+        MovieManager manager = new MovieManager();
         manager.add(first);
         manager.add(second);
         manager.add(third);
         manager.add(fourth);
         manager.add(fifth);
-        Movie[]  actual = manager.getAll();
+        Movie[] actual = manager.getAll();
         Movie[] expected = new Movie[]{fifth, fourth, third, second, first};
         assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void shouldGetCurrentFilms() {
-        MovieManager manager = new MovieManager(3);
+    public void shouldMoviesLessTen() {
+        MovieManager manager = new MovieManager(8);
         manager.add(first);
         manager.add(second);
         manager.add(third);
@@ -78,7 +79,44 @@ public class MovieManagerTest {
         manager.add(ninth);
         manager.add(tenth);
         Movie[] actual = manager.getMovies();
-        Movie[] expected = new Movie[]{tenth, ninth, eighth};
+        Movie[] expected = new Movie[]{tenth, ninth, eighth, seventh, sixth, fifth, fourth, third};
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldMoviesOverLimit() {
+        MovieManager manager = new MovieManager();
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+        manager.add(fourth);
+        manager.add(fifth);
+        manager.add(sixth);
+        manager.add(seventh);
+        manager.add(eighth);
+        manager.add(ninth);
+        manager.add(tenth);
+        manager.add(eleven);
+        Movie[] actual = manager.getMovies();
+        Movie[] expected = new Movie[]{eleven, tenth, ninth, eighth, seventh, sixth, fifth, fourth, third, second};
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldMoviesLimit() {
+        MovieManager manager = new MovieManager();
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+        manager.add(fourth);
+        manager.add(fifth);
+        manager.add(sixth);
+        manager.add(seventh);
+        manager.add(eighth);
+        manager.add(ninth);
+        manager.add(tenth);
+        Movie[] actual = manager.getMovies();
+        Movie[] expected = new Movie[]{tenth, ninth, eighth, seventh, sixth, fifth, fourth, third, second, first};
         assertArrayEquals(expected, actual);
     }
 }
