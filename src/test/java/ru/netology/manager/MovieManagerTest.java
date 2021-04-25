@@ -38,19 +38,10 @@ public class MovieManagerTest {
     void addMovie() {
         Movie eleven = new Movie(11, "https://Knives_Out_poster.jpg", "Knives_Out", "detective");
         manager.add(eleven);
-        Movie[] actual = manager.getAll();
-        Movie[] expected = new Movie[]{eleven, tenth, ninth, eighth, seventh, sixth, fifth, fourth, third, second, first};
+        Movie[] actual = manager.getMovies();
+        Movie[] expected = new Movie[]{eleven, tenth, ninth, eighth, seventh, sixth, fifth, fourth, third, second};
         assertArrayEquals(expected, actual);
     }
-
-    @Test
-    void shouldLastMovies() {
-        MovieManager manager = new MovieManager();
-        Movie[] actual = manager.getAll();
-        Movie[] expected = new Movie[]{};
-        assertArrayEquals(expected, actual);
-    }
-
 
     @Test
     void shouldMovieLessLimit() {
@@ -60,13 +51,13 @@ public class MovieManagerTest {
         manager.add(third);
         manager.add(fourth);
         manager.add(fifth);
-        Movie[] actual = manager.getAll();
+        Movie[] actual = manager.getMovies();
         Movie[] expected = new Movie[]{fifth, fourth, third, second, first};
         assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void shouldMoviesLessTen() {
+    public void shouldCurrentMovie() {
         MovieManager manager = new MovieManager(8);
         manager.add(first);
         manager.add(second);
