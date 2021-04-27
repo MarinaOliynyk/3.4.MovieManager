@@ -23,11 +23,13 @@ public class MovieManager {
     }
 
     public Movie[] getMovies() {
-        if (movies.length < movieCount) movieCount = movies.length;
-        Movie[] result = new Movie[movieCount];
-        for (int i = 0; i < result.length; i++) {
-            int index = movies.length - i - 1;
-            result[i] = movies[index];
+        int count = movieCount;
+        if (movieCount > movies.length) {
+            count = movies.length;
+        }
+        Movie[] result = new Movie[count];
+        for (int i = 0; i < count; i++) {
+            result[i] = movies[movies.length - i - 1];
         }
         return result;
     }
